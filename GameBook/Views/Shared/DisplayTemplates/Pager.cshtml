@@ -1,0 +1,41 @@
+﻿@model GameBook.Core.Pagination.Pager
+
+@if(Model.TotalPages > 1)
+{
+<div class="card-footer">
+    <i>Showing @Model.PageSize of @Model.TotalItems files</i>
+    <ul class="pagination pagination-sm float-right">
+        <li class="page-item @(Model.CurrentPage > 1 ? "" : "disabled")">
+                <a href="#" class="page-link" data-page="@(Model.CurrentPage - 1)">&laquo;</a>
+        </li>
+        @for (var page = Model.StartPage; page <= Model.EndPage; page++)
+        {
+            <li class="page-item @(Model.CurrentPage == page ? "active" : "")">
+                    <a href ="#" data-page="@(page)" class="page-link">@(page)</a>
+            </li>
+        }
+
+        <li class="page-item @(Model.CurrentPage < Model.TotalPages ? "" : "disabled")">
+                <a href="#" class="page-link" data-page="@(Model.CurrentPage + 1)">&raquo;</a>
+        </li>
+    </ul>
+</div>
+}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pageLinks = document.querySelectorAll(".page-link");
+
+        pageLinks.forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                const page = this.getAttribute("data-page");
+
+                // Redirect to the desired page with `page` as a query parameter
+                const url = new URL(window.location.href);
+                url.searchParams.set("pageNumber", page);
+                window.location.href = url.toString();
+            });
+        });
+    });
+</script>

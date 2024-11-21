@@ -1,0 +1,115 @@
+﻿@using GameBook.Core.Pagination;
+@model GameBook.Core.Pagination.PagedList<GameViewModel>
+
+<h1>@Translate["Games"]</h1>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@Translate["ListOfMyGames"]</h3>
+            
+        <div class="card-tools">                
+            <form asp-action="Search" asp-controller="Games" method="get">
+            <div class="input-group input-group-sm" style="width: 250px;">
+                <input type="text" name="searchTerm" class="form-control float-right" placeholder="Search">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <a asp-controller="Games" asp-action="AddGame" class="btn btn-secondary btn-sm ml-2">
+                    @Translate["AddGame"]
+                </a>
+            </div>
+            </form>
+            
+        </div>
+            
+        </div>
+        <div class="card-body p-0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                        <a asp-action="@(string.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()) ? "Index" : "Search")"
+                           asp-route-searchTerm="@(ViewData["SearchTerm"])"
+                           asp-route-sortBy="Name"
+                           asp-route-ascending="@(ViewData["SortBy"]?.ToString() == "Name" && (bool)ViewData["Ascending"] ? "false" : "true")">
+                           @Translate["GameName"] @(ViewData["SortBy"]?.ToString() == "Name" ? ((bool)ViewData["Ascending"] ? "↑" : "↓") : "")
+                        </a>
+                        </th><th>
+                        <a asp-action="@(string.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()) ? "Index" : "Search")"
+                           asp-route-searchTerm="@(ViewData["SearchTerm"])"
+                           asp-route-sortBy="Trophies"
+                           asp-route-ascending="@(ViewData["SortBy"]?.ToString() == "Trophies" && (bool)ViewData["Ascending"] ? "false" : "true")">
+                           @Translate["AchievedTrophies"] @(ViewData["SortBy"]?.ToString() == "Trophies" ? ((bool)ViewData["Ascending"] ? "↑" : "↓") : "")
+                        </a>
+                        </th><th>
+                        <a asp-action="@(string.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()) ? "Index" : "Search")"
+                           asp-route-searchTerm="@(ViewData["SearchTerm"])"
+                           asp-route-sortBy="MaxTrophies"
+                           asp-route-ascending="@(ViewData["SortBy"]?.ToString() == "MaxTrophies" && (bool)ViewData["Ascending"] ? "false" : "true")">
+                           @Translate["Trophies"] @(ViewData["SortBy"]?.ToString() == "MaxTrophies" ? ((bool)ViewData["Ascending"] ? "↑" : "↓") : "")
+                        </a>
+                        </th><th>
+                        <a asp-action="@(string.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()) ? "Index" : "Search")"
+                           asp-route-searchTerm="@(ViewData["SearchTerm"])"
+                           asp-route-sortBy="Progression"
+                           asp-route-ascending="@(ViewData["SortBy"]?.ToString() == "Progression" && (bool)ViewData["Ascending"] ? "false" : "true")">
+                           @Translate["Progression"] @(ViewData["SortBy"]?.ToString() == "Progression" ? ((bool)ViewData["Ascending"] ? "↑" : "↓") : "")
+                        </a>
+                        </th>
+                        <th style="width: 40px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var games in Model.Items)
+                    {                       
+                    <tr>
+                        <td>@games.Name</td>
+                        <td>@games.Trophies</td>
+                        <td>@games.MaxTrophies</td>
+                        <td>
+                            <div class="progress progress-xs">
+                                <div class="progress-bar progress-bar-danger" style="width: @games.Progression%"></div>
+                            </div>
+                        </td>
+                        <td>
+                                @{
+                                    string badgeClass;
+                                    if (games.Progression < 10)
+                                    {
+                                        badgeClass = "bg-danger";
+                                    }
+                                    else if (games.Progression >= 10 && games.Progression <= 40)
+                                    {
+                                        badgeClass = "bg-warning";
+                                    }
+                                    else if (games.Progression >= 41 && games.Progression <= 99)
+                                    {
+                                        badgeClass = "bg-primary";
+                                    }
+                                    else if (games.Progression == 100)
+                                    {
+                                        badgeClass = "bg-success";
+                                    }
+                                    else
+                                    {
+                                        badgeClass = "bg-secondary";
+                                    }
+                                }
+                                <span class="badge @badgeClass">@games.Progression%</span>
+                         </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+            @Html.DisplayFor(e => e.Pager)
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
