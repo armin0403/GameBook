@@ -11,7 +11,7 @@ namespace GameBook.Core.Models
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
-        public string Location { get; set; }
+        public string? Location { get; set; }
         public DateOnly DateOfBirth { get; set; }
     }
 }

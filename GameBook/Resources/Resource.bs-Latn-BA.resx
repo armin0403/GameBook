@@ -120,11 +120,29 @@
   <data name="AchievedTrophies" xml:space="preserve">
     <value>Osvojeni trofeji</value>
   </data>
+  <data name="AddGame" xml:space="preserve">
+    <value>Dodaj igricu</value>
+  </data>
+  <data name="AddingGame" xml:space="preserve">
+    <value>Dodavanje igrice</value>
+  </data>
   <data name="Bosnian" xml:space="preserve">
     <value>Bosanski</value>
   </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Datum rođenja</value>
+  </data>
+  <data name="EditingGame" xml:space="preserve">
+    <value>Uređivanje igrice</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Engleski</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ime</value>
   </data>
   <data name="GameName" xml:space="preserve">
     <value>Naziv igrice</value>
@@ -135,14 +153,41 @@
   <data name="Home" xml:space="preserve">
     <value>Početna</value>
   </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
   <data name="ListOfMyGames" xml:space="preserve">
     <value>Spisak mojih igrica</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Prijavi se</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lozinka</value>
   </data>
   <data name="Progression" xml:space="preserve">
     <value>Napredak</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registracija</value>
+  </data>
+  <data name="RetypePassowrd" xml:space="preserve">
+    <value>Ponovo unesite lozinku</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Spasi promjene</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
   <data name="Trophies" xml:space="preserve">
     <value>Trofeji</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Korisničko ime</value>
+  </data>
+  <data name="UsernameOrEmail" xml:space="preserve">
+    <value>Email ili korisničko ime</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Dobrodošli</value>

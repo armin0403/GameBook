@@ -1,7 +1,6 @@
 ﻿@using GameBook.Core.Pagination;
-@model GameBook.Core.Pagination.PagedList<GameViewModel>
+@model GameBook.Core.Pagination.PagedList<Game>
 
-<h1>@Translate["Games"]</h1>
 
 <div class="col-md-12">
     <div class="card">
@@ -11,7 +10,7 @@
         <div class="card-tools">                
             <form asp-action="Search" asp-controller="Games" method="get">
             <div class="input-group input-group-sm" style="width: 250px;">
-                <input type="text" name="searchTerm" class="form-control float-right" placeholder="Search">
+                <input type="text" name="searchTerm" class="form-control float-right" placeholder="@Translate["Search"]">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
                         <i class="fas fa-search"></i>
@@ -21,12 +20,11 @@
                     @Translate["AddGame"]
                 </a>
             </div>
-            </form>
-            
-        </div>
-            
+            </form>            
+        </div>            
         </div>
         <div class="card-body p-0">
+            @Html.Partial("Partial/_ContextMenu")
             <table class="table">
                 <thead>
                     <tr>
@@ -65,7 +63,12 @@
                 <tbody>
                     @foreach (var games in Model.Items)
                     {                       
-                    <tr>
+                    <tr class="context-menu-row" 
+                        data-id="@games.Id"
+                        data-controller="Games"
+                        data-info-action="Info"
+                        data-edit-action="Edit"
+                        data-delete-action="Delete">
                         <td>@games.Name</td>
                         <td>@games.Trophies</td>
                         <td>@games.MaxTrophies</td>
@@ -110,6 +113,6 @@
     </div>
 </div>
 
-<script>
 
-</script>
+
+

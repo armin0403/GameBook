@@ -10,6 +10,7 @@ namespace GameBook.Infrastructure
 
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
     }
 }

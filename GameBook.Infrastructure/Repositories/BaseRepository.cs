@@ -36,14 +36,19 @@ namespace GameBook.Infrastructure.Repositories
             return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IQueryable<TEntity>> GetAllAsync()
         {
-            return await _dbContext.Set<TEntity>().ToListAsync();
+            return _dbContext.Set<TEntity>();
         }
 
         public async Task UpdateAsync(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Update(entity);
+            if (_dbContext.Entry(entity).State == EntityState.Detached)
+            {
+                _dbContext.Set<TEntity>().Attach(entity);
+            }
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

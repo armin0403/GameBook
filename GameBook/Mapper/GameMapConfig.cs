@@ -1,5 +1,5 @@
 ﻿using GameBook.Core.Models;
-using GameBook.Core.ViewModels;
+using GameBook.Web.ViewModels;
 using Mapster;
 
 namespace GameBook.Services.Mapper

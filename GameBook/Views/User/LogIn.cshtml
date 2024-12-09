@@ -1,0 +1,92 @@
+﻿@model LogInViewModel
+
+@{
+    Layout = null;
+}
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Log in (v2)</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <!--Flags-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+</head>
+<body class="hold-transition login-page dark-mode">
+    <div class="login-box">
+        <div class="card card-outline card-secondary">
+            <div class="card-header text-center">
+                <a href="../Home/Index.cshtml" class="h1"><b>GameBook</b>APP</a>
+            </div>
+            <div class="text-center mt-4">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="languageDropdown" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fi fi-@ViewData["SelectedFlag"]"></i> @ViewData["SelectedLanguage"]
+                    </a>
+                    <div class="dropdown-menu">
+                        <a asp-controller="Language" asp-action="ChangeLanguage" asp-route-culture="en-US" class="dropdown-item">
+                            <i class="fi fi-us fis"></i> English
+                        </a>
+                        <a asp-controller="Language" asp-action="ChangeLanguage" asp-route-culture="bs-Latn-BA" class="dropdown-item">
+                            <i class="fi fi-ba fis"></i> Bosnian
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form action="../../index3.html" method="post">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="@Translate["UsernameOrEmail"]">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="@Translate["Password"]">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-secondary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-secondary btn-block">@Translate["LogIn"]</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="mb-0">
+                    <a asp-action="Register" asp-controller="User" class="text-center">@Translate["Register"]</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
+</body>
