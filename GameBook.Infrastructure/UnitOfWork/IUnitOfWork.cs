@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameBook.Infrastructure.Repositories;
+﻿using GameBook.Infrastructure.Repositories;
 
 namespace GameBook.Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork
     {
+        IUserRepository UserRepository { get; }
         IGameRepository GameRepository { get; }
+        ICountryRepository CountryRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }

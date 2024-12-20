@@ -22,6 +22,23 @@ namespace GameBook.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("GameBook.Core.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("GameBook.Core.Models.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -75,6 +92,9 @@ namespace GameBook.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("integer");
+
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
@@ -90,9 +110,6 @@ namespace GameBook.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("text");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
@@ -101,11 +118,17 @@ namespace GameBook.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PhotoPath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Users");
                 });
@@ -119,6 +142,17 @@ namespace GameBook.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GameBook.Core.Models.User", b =>
+                {
+                    b.HasOne("GameBook.Core.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
                 });
 #pragma warning restore 612, 618
         }

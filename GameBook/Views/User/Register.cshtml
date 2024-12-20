@@ -9,15 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdminLTE 3 | Registration Page (v2)</title>
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- Select2 Default CSS -->
+    <link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
+    <!-- Tempus Dominus -->
+    <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">    
     <!--Flags-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 </head>
@@ -44,73 +47,165 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Register a new membership</p>
-                <form asp-action="Register" asp-controller="User" method="post">
+                <form asp-action="Register" asp-controller="User" method="post" enctype="multipart/form-data">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="@Translate["FirstName"]" asp-for="FirstName">
+                        <input type="text" name="FirstName" class="form-control" placeholder="@Translate["FirstName"]" asp-for="FirstName">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="@Translate["LastName"]" asp-for="LastName">
+                        <input type="text" name="LastName" class="form-control" placeholder="@Translate["LastName"]" asp-for="LastName">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    <div class="form-group">
+                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                            <input type="text" name="DateOfBirth" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="@Translate["DateOfBirth"]"/>
+                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                        <select class="select2" name="CountryId" style="width: 100%;" id="country" asp-for="CountryId" asp-items="Model.CountryDropdown">
+                            <option value="" selected>None</option>
+                        </select>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Username" class="text-danger"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="@Translate["Username"]" asp-for="Username">
+                        <input type="text" name="Username" class="form-control" placeholder="@Translate["Username"]" asp-for="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="@Translate["Email"]" asp-for="Email">
+                        <input type="email" name="Email" class="form-control" placeholder="@Translate["Email"]" asp-for="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="@Translate["Password"]" asp-for="Password">
+                        <input type="password" name="Password" class="form-control" placeholder="@Translate["Password"]" asp-for="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
+                    <span asp-validation-for="RetypePassword" class="text-danger"></span>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="@Translate["RetypePassword"]" asp-for="RetypePassword">
+                        <input type="password" name="RetypePassword" class="form-control" placeholder="@Translate["RetypePassword"]" asp-for="RetypePassword">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
+                    <span asp-validation-for="PhotoUpload" class="text-danger"></span>
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" name="PhotoUpload" class="custom-file-input" id="exampleInputFile" asp-for="PhotoUpload">
+                                <label class="custom-file-label" for="exampleInputFile"></label>
+                            </div>
+                        </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-12">
                             <button type="submit" class="btn btn-secondary btn-block">Register</button>
                         </div>
                     </div>
-                </form>               
-
+                </form>
                 <a asp-action="LogIn" asp-controller="User" class="text-center">I already have a membership</a>
             </div>
-
-            <!-- /.form-box -->
-        </div><!-- /.card -->
+        </div>
     </div>
-    <!-- /.register-box -->
     <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <!-- Scripts -->
     <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- Moment.js -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <!-- Tempus Dominus -->
+    <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Other Plugins -->
+    <script src="~/plugins/chart.js/Chart.min.js"></script>
+    <script src="~/plugins/sparklines/sparkline.js"></script>
+    <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="~/dist/js/adminlte.js"></script>
+
+<script>
+    
+    $(document).ready(function () {
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        bsCustomFileInput.init();
+
+        console.log(@Html.Raw(Json.Serialize(Model.CountryDropdown)));
+        var countryData = @Html.Raw(Json.Serialize(Model.CountryDropdown))
+            .map(function (item) {
+        return { id: item.value, text: item.text };
+        });
+
+        $('#country').select2({
+            placeholder:"@Translate["CountryofOrigins"]",
+            data: countryData, 
+            minimumInputLength: 0,
+            ajax: {
+                url: '/User/GetCountryDropdown',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term
+                    };
+                },
+                processResults: function (data) {
+                    var results = data.results.slice(0, 5);
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $("#country").val("").trigger("change");
+
+        
+    }); 
+
+</script>
 </body>

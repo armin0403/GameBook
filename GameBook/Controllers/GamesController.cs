@@ -5,6 +5,7 @@ using GameBook.Web.ViewModels;
 using MapsterMapper;
 using GameBook.Core.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using GameBook.Helpers.ToastHelper;
 
 namespace GameBook.Controllers
 {
@@ -14,16 +15,19 @@ namespace GameBook.Controllers
         private readonly IPaginationService _paginationService;
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
+        private readonly IToastService _toast;
 
         public GamesController(IUnitOfWork unitOfWork,
                                IPaginationService paginationService,
                                IGameService gameService,
-                               IMapper mapper) 
+                               IMapper mapper,
+                               IToastService toastService) 
         {
             _unitOfWork = unitOfWork;
             _paginationService = paginationService;
             _gameService = gameService;
             _mapper = mapper;
+            _toast = toastService;
         }
         public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5, string sortBy = "Name", bool ascending = true, string searchTerm ="")
         {
@@ -53,6 +57,7 @@ namespace GameBook.Controllers
             await _gameService.AddGame(game);
             await _unitOfWork.SaveChangesAsync();
 
+            _toast.Success("Uspješno dodano");
             return RedirectToAction("Index");
         }
 

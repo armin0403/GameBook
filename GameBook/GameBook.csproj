@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,10 +30,6 @@
     <ProjectReference Include="..\GameBook.Core\GameBook.Core.csproj" />
     <ProjectReference Include="..\GameBook.Infrastructure\GameBook.Infrastructure.csproj" />
     <ProjectReference Include="..\GameBook.Services\GameBook.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Validator\" />
   </ItemGroup>
 
 </Project>

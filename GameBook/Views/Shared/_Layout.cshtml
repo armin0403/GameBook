@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
     <!--ContextMenu-->
     <link rel="stylesheet" href="~/css/context-menu.css" />
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
 </head>
 
@@ -80,9 +82,7 @@
                                 @Translate["Home"]
                             </p>
                         </a>
-                    </li>                        
-                </ul>
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    </li>                     
                     <li class="nav-item">
                         <a asp-controller="Games" asp-action="Index" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
@@ -91,7 +91,32 @@
                             </p>
                         </a>
                     </li>                        
-                </ul>
+                    <li class="nav-item menu-open">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-regular fa-user"></i>
+                                <p>
+                                    User management
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="Register" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Register</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="LogIn" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Login</p>
+                                    </a>
+                                </li>
+                            </ul>
+                    </li>
+                </ul>                
             </nav>
         </div>
     </aside>
@@ -121,7 +146,23 @@
     <script src="~/dist/js/adminlte.js"></script>
     <!--ContextMenu-->
     <script src="~/js/context-menu.js"></script>
-
+    <!-- SweetAlert2 -->
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        function showToastMessages(timeout = 0) {
+            return new Promise(function (resolve) {
+                setTimeout(async function () {
+                    await $.get("@Url.Action("GetMessages", "Toast")",
+                        function (jsResult) {
+                            eval(jsResult);
+                            resolve("Ok");
+                        });
+                },
+                    timeout);
+            });
+        };
+    </script>
+    @ToastService.Display()
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

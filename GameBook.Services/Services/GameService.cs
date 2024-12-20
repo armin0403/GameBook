@@ -30,7 +30,7 @@ namespace GameBook.Services.Services
 
         public async Task<PagedList<Game>> GetPagedGames(int pageNumber, int pageSize, string sortBy = "Name", bool ascending = true, string searchTerm = "")
         {
-            var games = await _unitOfWork.GameRepository.GetAllAsync();
+            var games = await _unitOfWork.GameRepository.GetAllAsyncQ();
 
             if (!string.IsNullOrEmpty(searchTerm))
             {

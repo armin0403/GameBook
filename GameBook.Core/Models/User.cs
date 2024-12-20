@@ -1,6 +1,4 @@
-﻿
-
-namespace GameBook.Core.Models
+﻿namespace GameBook.Core.Models
 {
     public class User
     {
@@ -11,7 +9,9 @@ namespace GameBook.Core.Models
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
-        public string? Location { get; set; }
+        public Country Country { get; set; }
+        public int CountryId { get; set; }
         public DateOnly DateOfBirth { get; set; }
+        public string PhotoPath { get; set; }
     }
 }

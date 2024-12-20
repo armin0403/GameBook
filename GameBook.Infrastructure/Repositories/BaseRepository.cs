@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameBook.Infrastructure.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private readonly GameBookDbContext _dbContext;
+        protected readonly GameBookDbContext _dbContext;
 
         public BaseRepository(GameBookDbContext dbContext) 
         {
@@ -36,7 +32,12 @@ namespace GameBook.Infrastructure.Repositories
             return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<IQueryable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsyncE()
+        {
+            return await _dbContext.Set<TEntity>().ToListAsync();
+        }
+
+        public async Task<IQueryable<TEntity>> GetAllAsyncQ()
         {
             return _dbContext.Set<TEntity>();
         }

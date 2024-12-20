@@ -1,11 +1,11 @@
 using System.Globalization;
 using GameBook.Extensions;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterServices();
 builder.Services.AddLocalization();
 builder.Services.AddControllersWithViews()
