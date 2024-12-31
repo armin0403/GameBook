@@ -13,7 +13,7 @@ namespace GameBook.Helpers.ToastHelper
         }
 
         public const string Key = "_temp_data_toast_message";
-        private const string SweetAlertTemplate = "Swal.fire({{icon: '{0}', title: '{1}'}})";
+        private const string SweetAlertTemplate = "Swal.fire({{toast: true, position: 'top-end', icon: '{0}', title: '{1}', showConfirmButton: false, timer: 3000}})";
 
         private readonly ITempDataDictionary _tempData;
 

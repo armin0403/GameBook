@@ -13,5 +13,6 @@
         public int CountryId { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public string PhotoPath { get; set; }
+        public Profile Profile { get; set; }
     }
 }

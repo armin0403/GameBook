@@ -5,8 +5,9 @@ namespace GameBook.Services.Services
     public interface IUserService
     {
         Task<User> GetByUsernameOrEmail (string usernameOrEmail);
+        Task<User> GetUserByIdAsync (int id);
         Task<bool> AddNewUserAsync(User user);
-        Task<User> UpdateUserAsync(User user);
-        Task<User> DeleteUserAsync(User user);
+        Task<bool> UpdateUserAsync(User user);
+        Task<bool> DeleteUserAsync(User user);
     }
 }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>About me</value>
+  </data>
   <data name="AchievedTrophies" xml:space="preserve">
     <value>Achieved trophies</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="Bosnian" xml:space="preserve">
     <value>Bosnian</value>
   </data>
+  <data name="ChangesSaved" xml:space="preserve">
+    <value>Changes successfully saved!</value>
+  </data>
   <data name="CountryofOrigins" xml:space="preserve">
     <value>Country of origins</value>
   </data>
   <data name="DateOfBirth" xml:space="preserve">
     <value>Date of birth</value>
+  </data>
+  <data name="DeleteProfile" xml:space="preserve">
+    <value>Delete profile</value>
   </data>
   <data name="EditingGame" xml:space="preserve">
     <value>Editing a game</value>
@@ -149,6 +158,15 @@
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>Friends</value>
   </data>
   <data name="GameName" xml:space="preserve">
     <value>Name of the game</value>
@@ -167,6 +185,9 @@
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
+  </data>
+  <data name="NotSaved" xml:space="preserve">
+    <value>Changes not saved!</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

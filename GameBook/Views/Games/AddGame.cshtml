@@ -1,12 +1,5 @@
 ﻿@model GameViewModel
 
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-
 <section class="content" style="margin-top: 80px;">
     <div class="container-fluid">
         <div class="row">
@@ -15,11 +8,41 @@
                     <div class="card-header">
                         <h3 class="card-title">@Translate["AddingGame"]</h3>
                     </div>
-                    <form asp-action="AddGame" asp-controller="Games" method="post">
+                    <form enctype="multipart/form-data" asp-action="AddGame" asp-controller="Games" method="post">
                         <div class="card-body">
                             <div class="form-group">
                                 <label>@Translate["GameName"]</label>
                                 <input type="text" class="form-control" placeholder="@Translate["GameName"]" asp-for="Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter ..." asp-for="Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <label>@Translate["Rating:"]</label>
+                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                            @for (int i = 1; i <= 10; i++)
+                                            {
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" asp-for="Rating" value="@i"> @i
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>@Translate["Difficulty:"]</label>
+                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                            @for (int i = 1; i <= 10; i++)
+                                            {
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" asp-for="Difficulty" value="@i"> @i
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>@Translate["AchievedTrophies"]</label>
@@ -28,6 +51,24 @@
                             <div class="form-group">
                                 <label>@Translate["Trophies"]</label>
                                 <input type="text" class="form-control" placeholder="@Translate["Trophies"]" asp-for="MaxTrophies">
+                            </div>
+                            <div class="form-group">
+                                <label>Multiple Genre</label>
+                                <select class="select2" multiple="multiple" id="genre" data-placeholder="Select a State" style="width: 100%;" asp-for="SelectedGameGenres" asp-items="Model.GameGenres">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Multiple Platform</label>
+                                <select class="select2" multiple="multiple" id="platform" data-placeholder="Select a State" style="width: 100%;" asp-for="SelectedGamePlatforms" asp-items="Model.GamePlatforms">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file" name="PhotoUpload" class="custom-file-input" id="exampleInputFile" asp-for="PhotoUpload">
+                                    <label class="custom-file-label" for="exampleInputFile"></label>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -38,21 +79,75 @@
             </div>
         </div>
     </div>
-</section>              
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- bs-custom-file-input -->
-<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="../../dist/js/demo.js"></script>
-<!-- Page specific script -->
+</section>
+
+
 <script>
-    $(function () {
-        bsCustomFileInput.init();
+$(document).ready(function () {
+
+    bsCustomFileInput.init();
+
+    console.log(@Html.Raw(Json.Serialize(Model.GameGenres)));
+    var gameGenreData = @Html.Raw(Json.Serialize(Model.GameGenres))
+            .map(function (item) {
+        return { id: item.value, text: item.text };
     });
+
+    $('#genre').select2({
+        placeholder: "Game genre",
+        data: gameGenreData,
+        minimumInputLength: 0,
+        ajax: {
+            url: '/Games/GetGenreDropdown',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    searchTerm: params.term
+                };
+            },
+            processResults: function (data) {
+                var results = data.results.slice(0, 5);
+                return {
+                    results: results
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#genre").val("").trigger("change");
+
+    console.log(@Html.Raw(Json.Serialize(Model.GamePlatforms)));
+    var gamePlatformData = @Html.Raw(Json.Serialize(Model.GamePlatforms))
+            .map(function (item) {
+        return { id: item.value, text: item.text };
+    });
+
+    $('#platform').select2({
+        placeholder: "Game platform",
+        data: gamePlatformData,
+        minimumInputLength: 0,
+        ajax: {
+            url: '/Games/GetPlatformDropdown',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    searchTerm: params.term
+                };
+            },
+            processResults: function (data) {
+                var results = data.results.slice(0, 5);
+                return {
+                    results: results
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#platform").val("").trigger("change");
+});
 </script>
+

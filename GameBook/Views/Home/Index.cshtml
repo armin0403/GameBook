@@ -1,11 +1,87 @@
-﻿﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">@Translate["Welcome"]</h1>
+﻿@model UserViewModel
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Latest News</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <p>WE WILL PUT NEWS HERE</p>
+            </div>
+            <div class="card-footer clearfix">
+                <p>MORE</p>
+            </div>
+        </div>
+    </div>
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Latest Members</h3>
+            <div class="card-tools">
+                <span class="badge badge-danger">8 New Members</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <ul class="users-list clearfix">
+                
+                    <li>
+                    <img src="/uploads/user/6fe48d99-3841-41a5-8231-b813ec67edb4.jpg" alt="User Image">
+                        <a class="users-list-name" href="#">Alexander Pierce</a>
+                        <span class="users-list-date">Today</span>
+                    </li>
+                                
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <a href="javascript:">View All Users</a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            <h3 class="card-title">Recently Added Games</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <ul class="products-list product-list-in-card pl-2 pr-2">
+                <li class="item">
+                    <div class="product-img">
+                    <img src="/uploads/user/6fe48d99-3841-41a5-8231-b813ec67edb4.jpg" alt="Product Image" class="img-size-50">
+                    </div>
+                    <div class="product-info">
+                    <a href="javascript:void(0)" class="product-title">
+                        Name of the game
+                        <span class="badge badge-danger float-right">NEW</span>
+                    </a>
+                    <span class="product-description">
+                        Release date
+                    </span>
+                </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Index" asp-controller="Games" class="uppercase">View All Products</a>
+        </div>
+    </div>
 </div>

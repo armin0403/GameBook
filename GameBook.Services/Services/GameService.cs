@@ -24,7 +24,7 @@ namespace GameBook.Services.Services
         {
             _mapper.Map<Game>(game);
             await _unitOfWork.GameRepository.AddAsync(game);
-
+            await _unitOfWork.SaveChangesAsync();
             return game;
         }
 

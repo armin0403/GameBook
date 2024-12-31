@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const contextMenu = document.getElementById('contextMenu');
+  const deleteModal = $('#modal-sm');
+
+  const closeMenu = function (event) {
+    if (!contextMenu.contains(event.target)) {
+      contextMenu.style.display = 'none';
+      document.removeEventListener('click', closeMenu);
+    }
+  };
 
   document.querySelectorAll('.context-menu-row').forEach(function (row) {
     row.addEventListener('contextmenu', function (e) {
@@ -23,31 +31,28 @@ document.addEventListener("DOMContentLoaded", function () {
       contextMenu.style.left = `${posX}px`;
       contextMenu.style.display = 'block';
 
-      // Info option
-      document.getElementById('infoOption').onclick = function () {
-        console.log("Info option clicked");
-        const infoUrl = `/${controllerName}/Info?id=${rowId}`;
-        window.location.href = infoUrl;
-      };
-
-      // Edit option
       document.getElementById('editOption').onclick = function () {
         console.log("Edit option clicked");
         const editUrl = `/${controllerName}/Edit?id=${rowId}`;
         window.location.href = editUrl;
       };
 
+      document.getElementById('infoOption').onclick = function () {
+        console.log("Info option clicked");
+        const infoUrl = `/${controllerName}/Info?id=${rowId}`;
+        window.location.href = infoUrl;
+      }
+
       document.getElementById('deleteOption').onclick = function () {
         console.log("Delete option clicked");
-        const editUrl = `/${controllerName}/Delete?id=${rowId}`;
+        deleteModal.attr('data-row-id', rowId);
+        deleteModal.attr('data-controller-name', controllerName);
+        deleteModal.modal('show');
       };
-    });
-  });
 
-  // Hide context menu when clicking outside
-  document.addEventListener('click', function (e) {
-    if (!contextMenu.contains(e.target)) {
-      contextMenu.style.display = 'none';
-    }
+      };
+
+      document.addEventListener('click', closeMenu);
+    });
   });
 });

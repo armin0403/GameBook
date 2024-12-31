@@ -6,6 +6,8 @@ using MapsterMapper;
 using GameBook.Core.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using GameBook.Helpers.ToastHelper;
+using GameBook.Helpers.DropdownHelper;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 namespace GameBook.Controllers
 {
@@ -16,18 +18,24 @@ namespace GameBook.Controllers
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
         private readonly IToastService _toast;
+        private readonly IDropdownService _dropdownService;
+        private readonly IPhotoService _photoService;
 
         public GamesController(IUnitOfWork unitOfWork,
                                IPaginationService paginationService,
                                IGameService gameService,
                                IMapper mapper,
-                               IToastService toastService) 
+                               IToastService toastService,
+                               IDropdownService dropdownService,
+                               IPhotoService photoService) 
         {
             _unitOfWork = unitOfWork;
             _paginationService = paginationService;
             _gameService = gameService;
             _mapper = mapper;
             _toast = toastService;
+            _dropdownService = dropdownService;
+            _photoService = photoService;
         }
         public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5, string sortBy = "Name", bool ascending = true, string searchTerm ="")
         {
@@ -44,20 +52,47 @@ namespace GameBook.Controllers
             return RedirectToAction("Index", new {pageNumber, pageSize, sortBy, ascending, searchTerm});
         }
 
-        public IActionResult AddGame()
+        public async Task<IActionResult> AddGame()
         {
-            return View("AddGame");
+            var gameGenreDropdown = (await _dropdownService.GetGenreDropdownList(null, null)).Take(5);
+            var gamePlatformDropdown = await _dropdownService.GetPlatformSelectList();
+            var viewModel = new GameViewModel
+            {
+                GameGenres = gameGenreDropdown,
+                GamePlatforms = gamePlatformDropdown
+            };
+            return View("AddGame", viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGame(GameViewModel model)
+        public async Task<IActionResult> AddGame(IFormFile photoUpload, GameViewModel model)
         {
+            ModelState.Clear();
+
+            try
+            {
+                await _photoService.AddPhotoAsync(photoUpload, model, "uploads/games");
+            }
+            catch
+            {
+                return View(model);
+            }
+
             var game = _mapper.Map<Game>(model);
 
-            await _gameService.AddGame(game);
-            await _unitOfWork.SaveChangesAsync();
 
-            _toast.Success("Uspješno dodano");
+            game.GameGenres = model.SelectedGameGenres.Select(genreId => new GameGenre { GenreId = genreId }).ToList();
+            game.GamePlatforms = model.SelectedGamePlatforms.Select(platformId => new GamePlatform { PlatformId = platformId }).ToList();
+            try
+            {
+                await _gameService.AddGame(game);
+            }
+            catch
+            {
+                return View(model);
+            }
+
+            _toast.Success("Uspješno dodano!");
             return RedirectToAction("Index");
         }
 
@@ -67,6 +102,7 @@ namespace GameBook.Controllers
             if(game == null) return View("Error");
 
             var gameVM = _mapper.Map<GameViewModel>(game);
+
             return View("EditGame", gameVM);
         }
 
@@ -83,9 +119,9 @@ namespace GameBook.Controllers
 
             await _unitOfWork.GameRepository.UpdateAsync(editGame);
 
+            _toast.Warning("Uspješno editovano!");
             return RedirectToAction("Index");
-        }
-        
+        }       
 
         public async Task<IActionResult> Info(int id)
         {
@@ -103,7 +139,23 @@ namespace GameBook.Controllers
             if (game == null) return View("Error");
 
             _unitOfWork.GameRepository.Delete(game);
+
+            _toast.Danger("Uspješno izbrisano!");
             return RedirectToAction("Index");
-        }        
+        }      
+        
+        public async Task<IActionResult> GetGenreDropdown(string? searchTerm)
+        {
+            var genres = await _dropdownService.GetGenreDropdownList(searchTerm, null);
+            var results = genres.Select(genres => new { id = genres.Value, text = genres.Text });
+            return Json(new {results});
+        }
+
+        public async Task<IActionResult> GetPlatformDropdown()
+        {
+            var platforms = await _dropdownService.GetPlatformSelectList();
+            var results = platforms.Select(platforms => new {id = platforms.Value, text = platforms.Text});
+            return Json(new {results});
+        }
     }
 }

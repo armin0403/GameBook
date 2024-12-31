@@ -10,7 +10,7 @@ namespace GameBook.Services.Services
                 throw new ArgumentException("Invalid photo file!");
 
             string rootPath = Directory.GetCurrentDirectory();
-            string uploadFolder = Path.Combine(rootPath, "wwwwroot", folderPath);
+            string uploadFolder = Path.Combine(rootPath, "wwwroot", folderPath);
 
             if (!Directory.Exists(uploadFolder))
             {

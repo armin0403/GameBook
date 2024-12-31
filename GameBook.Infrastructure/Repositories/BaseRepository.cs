@@ -19,7 +19,7 @@ namespace GameBook.Infrastructure.Repositories
 
         public void Delete(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Remove(entity);
+           _dbContext.Set<TEntity>().Remove(entity);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)

@@ -5,5 +5,6 @@ namespace GameBook.Infrastructure.Repositories
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<User> GetbyUsernameOrEmailAsync(string usernameOrEmail);
+        Task<User> GetbyIdAsyncT(int id);
     }
 }

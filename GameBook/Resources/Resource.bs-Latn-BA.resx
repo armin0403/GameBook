@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>O meni</value>
+  </data>
   <data name="AchievedTrophies" xml:space="preserve">
     <value>Osvojeni trofeji</value>
   </data>
@@ -129,6 +132,9 @@
   <data name="Bosnian" xml:space="preserve">
     <value>Bosanski</value>
   </data>
+  <data name="ChangesSaved" xml:space="preserve">
+    <value>Promjene uspješno spašene!</value>
+  </data>
   <data name="CountryofOrigins" xml:space="preserve">
     <value>Lokacija</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="DateOfBirthValidation" xml:space="preserve">
     <value>Korisnik mora biti stariji od 18 godina</value>
+  </data>
+  <data name="DeleteProfile" xml:space="preserve">
+    <value>Izbriši profil</value>
   </data>
   <data name="EditingGame" xml:space="preserve">
     <value>Uređivanje igrice</value>
@@ -162,6 +171,15 @@
   <data name="FirstNameValidation" xml:space="preserve">
     <value>Ime neophodno</value>
   </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Pratitelji</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Pratim</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>Prijatelji</value>
+  </data>
   <data name="GameName" xml:space="preserve">
     <value>Naziv igrice</value>
   </data>
@@ -182,6 +200,9 @@
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Prijavi se</value>
+  </data>
+  <data name="NotSaved" xml:space="preserve">
+    <value>Promjene nisu spašene!</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Lozinka</value>

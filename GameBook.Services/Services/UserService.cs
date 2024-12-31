@@ -18,9 +18,11 @@ namespace GameBook.Services.Services
             return true;
         }
 
-        public Task<User> DeleteUserAsync(User user)
+        public async Task<bool> DeleteUserAsync(User user)
         {
-            throw new NotImplementedException();
+            UnitOfWork.UserRepository.Delete(user);
+            await UnitOfWork.SaveChangesAsync();
+            return true;           
         }
 
         public async Task<User> GetByUsernameOrEmail(string usernameOrEmail)
@@ -28,9 +30,16 @@ namespace GameBook.Services.Services
             return await UnitOfWork.UserRepository.GetbyUsernameOrEmailAsync(usernameOrEmail);
         }
 
-        public Task<User> UpdateUserAsync(User user)
+        public Task<User> GetUserByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.UserRepository.GetbyIdAsyncT(id);
+        }
+
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            await UnitOfWork.UserRepository.UpdateAsync(user);
+            await UnitOfWork.SaveChangesAsync(); 
+            return true;
         }
     }
 }

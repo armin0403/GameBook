@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameBook.Helpers.DropdownHelper;
+using GameBook.Helpers.SessionHelper;
 using GameBook.Helpers.ToastHelper;
 using GameBook.Infrastructure;
 using GameBook.Infrastructure.UnitOfWork;
@@ -23,9 +24,11 @@ namespace GameBook.Extensions
             services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IToastService, ToastService>();
+            services.AddScoped<ISessionService, SessionService>();
 
             services.AddScoped<IValidator<RegisterViewModel>, RegisterViewModelValidator>();
             services.AddScoped<IValidator<LogInViewModel>, LoginViewModelValidator>();
+            services.AddScoped<IValidator<UserViewModel>, UserViewModelValidator>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGameService, GameService>();
@@ -33,6 +36,14 @@ namespace GameBook.Extensions
             services.AddDbContext<GameBookDbContext>((sp, opts) =>
             {
                 opts.UseNpgsql(sp.GetRequiredService<IConfiguration>().GetConnectionString("GameBookConnection"));
+            });
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             return services;

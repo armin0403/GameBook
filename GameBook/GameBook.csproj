@@ -16,6 +16,7 @@
     <None Include="wwwroot\.github\workflows\codeql.yml" />
     <None Include="wwwroot\.github\workflows\docs.yml" />
     <None Include="wwwroot\.github\workflows\lint.yml" />
+    <None Include="wwwroot\uploads\user\5d4912e9-4316-445f-ad4b-cf80def31d68.jpg" />
   </ItemGroup>
 
   <ItemGroup>

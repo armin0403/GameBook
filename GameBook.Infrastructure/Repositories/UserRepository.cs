@@ -9,9 +9,15 @@ namespace GameBook.Infrastructure.Repositories
         {        
         }
 
+        public async Task<User> GetbyIdAsyncT(int id)
+        {
+            return await _dbContext.Users.Include(c => c.Country).FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<User> GetbyUsernameOrEmailAsync(string usernameOrEmail)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == usernameOrEmail || u.Email == usernameOrEmail);
+            return await _dbContext.Users.Include(c => c.Country).FirstOrDefaultAsync(u => u.Username == usernameOrEmail || u.Email == usernameOrEmail);
         }
+
     }
 }
